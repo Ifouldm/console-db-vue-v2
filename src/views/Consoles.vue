@@ -1,7 +1,7 @@
 <template>
     <v-container>
-        <v-alert color="red" v-if=loading>LOADING</v-alert>
-        <v-alert color="light-blue" elevation="2" dismissible v-if=error>{{error}}</v-alert>
+        <LoadingAlert v-if=loading />
+        <ErrorAlert error=error v-if=error />
         <v-col cols="12">
             <v-row v-for="console in consoles" v-bind:key="console.id">
             <ConsoleView
@@ -12,31 +12,20 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState, mapActions } from 'vuex';
 import ConsoleView from '../components/ConsoleCard.vue';
+import LoadingAlert from '../components/Loading.vue';
+import ErrorAlert from '../components/Error.vue';
 
 export default {
-    components: { ConsoleView },
+    components: { ConsoleView, LoadingAlert, ErrorAlert },
     name: 'Consoles',
-    mounted() {
-        this.loading = true;
-        axios.get('http://localhost:8080/api/consoles')
-            .then((res) => {
-                this.loading = false;
-                this.error = null;
-                this.consoles = res.data._embedded.consoles;
-            })
-            .catch((err) => {
-                this.loading = false;
-                this.error = err;
-            });
+    computed: mapState(['consoles', 'error', 'loading']),
+    methods: {
+        ...mapActions(['loadConsoles']),
     },
-    data() {
-        return {
-            error: null,
-            loading: true,
-            consoles: [],
-        };
+    mounted() {
+        this.loadConsoles();
     },
 };
 </script>

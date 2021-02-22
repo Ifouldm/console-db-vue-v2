@@ -1,7 +1,7 @@
 <template>
     <v-container>
-        <v-alert color="red" v-if=loading>LOADING</v-alert>
-        <v-alert color="light-blue" elevation="2" dismissible v-if=error>{{error}}</v-alert>
+        <Loading v-if=loading />
+        <Error error=error v-if=error />
         <v-col cols="12">
             <v-row v-for="game in games" :key="game.gameId">
                 <GameView :game=game />
@@ -9,49 +9,30 @@
         </v-col>
         <v-pagination
             @input=onPageChange
-            :v-model=page.number
             :length=page.totalPages
-            total-visible="7" />
-        {{page.number}}
+            total-visible="7"
+            :value=page.number />
     </v-container>
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions, mapState } from 'vuex';
 import GameView from '../components/GameCard.vue';
+import Loading from '../components/Loading.vue';
+import Error from '../components/Error.vue';
 
 export default {
-    components: { GameView },
+    components: { GameView, Loading, Error },
     name: 'Games',
+    computed: mapState(['games', 'error', 'loading', 'page']),
     methods: {
-        getGames: function getGames(pageNo = 1) {
-            axios.get(`http://localhost:8080/api/games?page=${pageNo}`)
-                .then((res) => {
-                    this.loading = false;
-                    this.error = null;
-                    this.games = res.data._embedded.game;
-                    this.page.totalPages = res.data.page.totalPages;
-                })
-                .catch((err) => {
-                    this.loading = false;
-                    this.error = err;
-                });
-        },
+        ...mapActions(['loadGames']),
         onPageChange: function pageChange(pageNo) {
-            this.getGames(pageNo);
+            this.loadGames(pageNo);
         },
     },
     mounted() {
-        this.loading = true;
-        this.getGames();
-    },
-    data() {
-        return {
-            page: {},
-            error: null,
-            loading: true,
-            games: [],
-        };
+        this.loadGames(1);
     },
 };
 </script>
