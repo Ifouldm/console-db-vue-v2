@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -8,9 +8,10 @@ export default new Vuex.Store({
     state: {
         consoles: [],
         games: [],
+        game: null,
         page: {},
         loading: false,
-        error: null,
+        error: null
     },
     mutations: {
         updateConsoles(state, consoleList) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
         },
         updateGames(state, gameList) {
             state.games = gameList;
+        },
+        updateGame(state, game) {
+            state.game = game;
         },
         setLoading(state, value) {
             state.loading = value;
@@ -27,35 +31,51 @@ export default new Vuex.Store({
         },
         setPageData(state, pageData) {
             state.page = pageData;
-        },
+        }
     },
     actions: {
         loadConsoles(context) {
-            context.commit('setLoading', true);
-            axios.get('http://localhost:8080/api/consoles')
-                .then((res) => {
-                    context.commit('setLoading', false);
-                    context.commit('setError', null);
-                    context.commit('updateConsoles', res.data._embedded.consoles);
+            context.commit("setLoading", true);
+            axios
+                .get("http://localhost:8080/api/consoles")
+                .then(res => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", null);
+                    context.commit("updateConsoles", res.data._embedded.consoles);
                 })
-                .catch((err) => {
-                    context.commit('setLoading', false);
-                    context.commit('setError', err);
+                .catch(err => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", err);
                 });
         },
         loadGames(context, pageNo) {
-            context.commit('setLoading', true);
-            axios.get(`http://localhost:8080/api/games?page=${pageNo}`)
-                .then((res) => {
-                    context.commit('setLoading', false);
-                    context.commit('setError', null);
-                    context.commit('updateGames', res.data._embedded.game);
-                    context.commit('setPageData', res.data.page);
+            context.commit("setLoading", true);
+            axios
+                .get(`http://localhost:8080/api/games?page=${pageNo}`)
+                .then(res => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", null);
+                    context.commit("updateGames", res.data._embedded.game);
+                    context.commit("setPageData", res.data.page);
                 })
-                .catch((err) => {
-                    context.commit('setLoading', false);
-                    context.commit('setError', err);
+                .catch(err => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", err);
                 });
         },
-    },
+        loadGame(context, gameId) {
+            context.commit("setLoading", true);
+            axios
+                .get(`http://localhost:8080/api/games/${gameId}`)
+                .then(res => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", null);
+                    context.commit("updateGame", res.data);
+                })
+                .catch(err => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", err);
+                });
+        }
+    }
 });

@@ -4,10 +4,7 @@
         "browser": true,
         "es6": true
     },
-    "extends": [
-        "plugin:vue/essential",
-        "airbnb-base"
-    ],
+    "extends": ["plugin:vue/essential", "airbnb-base", "prettier"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -17,11 +14,8 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "vue"
-    ],
+    "plugins": ["vue"],
     "rules": {
-        "indent": ["error", 4],
         "no-console": "off",
         "no-underscore-dangle": "off",
         "no-param-reassign": "off"
