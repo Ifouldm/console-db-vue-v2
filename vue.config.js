@@ -1,9 +1,7 @@
 module.exports = {
     devServer: {
-        proxy: 'http://obidex.com/',
+        proxy: "https://obidex.com/"
     },
 
-    transpileDependencies: [
-        'vuetify',
-    ],
+    transpileDependencies: ["vuetify"]
 };
