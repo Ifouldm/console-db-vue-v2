@@ -1,45 +1,51 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import Consoles from '../views/Consoles.vue';
-import Games from '../views/Games.vue';
-import Game from '../views/Game.vue';
-import About from '../views/About.vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
+import Consoles from "../views/Consoles.vue";
+import ConsoleDetails from "../views/ConsoleDetails.vue";
+import Games from "../views/Games.vue";
+import GameDetails from "../views/GameDetails.vue";
+import About from "../views/About.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/',
-        name: 'home',
-        component: Home,
+        path: "/",
+        name: "home",
+        component: Home
     },
     {
-        path: '/consoles',
-        name: 'consoles',
-        component: Consoles,
+        path: "/consoles",
+        name: "consoles",
+        component: Consoles
     },
     {
-        path: '/games',
-        name: 'games',
-        component: Games,
+        path: "/console/:id",
+        name: "console",
+        component: ConsoleDetails
     },
     {
-        path: '/game/:id',
-        name: 'game',
-        component: Game,
+        path: "/games",
+        name: "games",
+        component: Games
     },
     {
-        path: '/about',
-        name: 'about',
-        component: About,
+        path: "/game/:id",
+        name: "game",
+        component: GameDetails
     },
+    {
+        path: "/about",
+        name: "about",
+        component: About
+    }
 ];
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     base: process.env.BASE_URL,
-    routes,
+    routes
 });
 
 export default router;

@@ -1,19 +1,19 @@
 <template>
-    <v-footer app padless>
-      <v-col
-        class="text-center"
-        cols="12"
-      >
-          {{ new Date().getFullYear() }} — <strong>Console DB</strong>
-    </v-col>
-    </v-footer>
+    <div class="footer">{{ new Date().getFullYear() }} — <strong>Console DB</strong></div>
 </template>
 
 <script>
 export default {
-    name: 'FooterElement',
+    name: "FooterElement"
 };
 </script>
 
-<style>
+<style scoped>
+.footer {
+    border: 4px solid black;
+    padding: 1rem;
+    color: #ffffff;
+    background-color: #257e9c;
+    background-image: url("../assets/banner.jpg");
+}
 </style>

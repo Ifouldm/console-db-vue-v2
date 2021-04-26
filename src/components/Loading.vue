@@ -1,3 +1,3 @@
 <template>
-  <v-alert elevation="2" color="red">LOADING</v-alert>
+    <div>LOADING</div>
 </template>

@@ -1,36 +1,13 @@
 <template>
-  <v-navigation-drawer app permanent>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">
-            Console DB
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            The Console Database
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider></v-divider>
-      <v-list
-        dense
-        nav
-      >
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          :to="item.link"
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <div class="drawer">
+        <div class="nes-container is-rounded">
+            <h4>Console DB</h4>
+            <h6>The Console Database</h6>
+            <router-link class="nes-btn is-primary" :to="item.link" v-for="item in items" :key="item.title">
+                <mdicon :name="item.icon" /> {{ item.title }}
+            </router-link>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -38,17 +15,27 @@ export default {
     data() {
         return {
             items: [
-                { title: 'home', icon: 'mdi-home', link: { name: 'home' } },
-                { title: 'consoles', icon: 'mdi-nintendo-game-boy', link: { name: 'consoles' } },
-                { title: 'games', icon: 'mdi-gamepad', link: { name: 'games' } },
-                { title: 'about', icon: 'mdi-information-outline', link: { name: 'about' } },
-            ],
+                { title: "home", icon: "home", link: { name: "home" } },
+                { title: "consoles", icon: "nintendo-game-boy", link: { name: "consoles" } },
+                { title: "games", icon: "gamepad", link: { name: "games" } },
+                { title: "about", icon: "information-outline", link: { name: "about" } }
+            ]
         };
-    },
-
+    }
 };
 </script>
 
-<style>
+<style scoped>
+.drawer {
+    margin: 1rem;
+}
 
+.nes-btn {
+    margin-bottom: 1rem;
+}
+
+.nes-container {
+    display: flex;
+    flex-direction: column;
+}
 </style>

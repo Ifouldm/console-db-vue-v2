@@ -1,19 +1,21 @@
 <template>
-    <v-app-bar
-        app
-        color="#257e9c"
-        shrink-on-scroll
-        fade-img-on-scroll
-        src="../assets/banner.jpg"
-        height="200px"
-></v-app-bar>
+    <div class="banner">
+        Banner
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'Appbar',
+    name: "Appbar"
 };
 </script>
 
-<style>
+<style scoped>
+.banner {
+    border: 4px solid black;
+    padding: 1rem;
+    color: #ffffff;
+    background-color: #257e9c;
+    background-image: url("../assets/banner.jpg");
+}
 </style>

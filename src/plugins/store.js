@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         consoles: [],
+        gameConsole: null,
         games: [],
         game: null,
         page: {},
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     mutations: {
         updateConsoles(state, consoleList) {
             state.consoles = consoleList;
+        },
+        updateConsole(state, gameConsole) {
+            state.gameConsole = gameConsole;
         },
         updateGames(state, gameList) {
             state.games = gameList;
@@ -71,6 +75,20 @@ export default new Vuex.Store({
                     context.commit("setLoading", false);
                     context.commit("setError", null);
                     context.commit("updateGame", res.data);
+                })
+                .catch(err => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", err);
+                });
+        },
+        loadConsole(context, consoleId) {
+            context.commit("setLoading", true);
+            axios
+                .get(`http://localhost:8080/api/consoles/${consoleId}`)
+                .then(res => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", null);
+                    context.commit("updateConsole", res.data);
                 })
                 .catch(err => {
                     context.commit("setLoading", false);
