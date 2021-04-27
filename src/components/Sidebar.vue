@@ -18,6 +18,7 @@ export default {
                 { title: "home", icon: "home", link: { name: "home" } },
                 { title: "consoles", icon: "nintendo-game-boy", link: { name: "consoles" } },
                 { title: "games", icon: "gamepad", link: { name: "games" } },
+                { title: "search", icon: "magnify", link: { name: "search" } },
                 { title: "about", icon: "information-outline", link: { name: "about" } }
             ]
         };
@@ -32,6 +33,7 @@ export default {
 
 .nes-btn {
     margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
 .nes-container {

@@ -5,6 +5,7 @@ import Consoles from "../views/Consoles.vue";
 import ConsoleDetails from "../views/ConsoleDetails.vue";
 import Games from "../views/Games.vue";
 import GameDetails from "../views/GameDetails.vue";
+import Search from "../views/Search.vue";
 import About from "../views/About.vue";
 
 Vue.use(VueRouter);
@@ -34,6 +35,11 @@ const routes = [
         path: "/game/:id",
         name: "game",
         component: GameDetails
+    },
+    {
+        path: "/search",
+        name: "search",
+        component: Search
     },
     {
         path: "/about",

@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="contents">
         <Loading v-if="loading" />
         <Error error="error" v-if="error" />
         <div class="nes-container is-rounded" v-if="game">
-            <p class="title">{{ game.gameName }}</p>
+            <h3 class="title">{{ game.gameName }}</h3>
             <div class="subtitle">{{ game.developer }}</div>
             <hr />
             <img :src="imageLink" />

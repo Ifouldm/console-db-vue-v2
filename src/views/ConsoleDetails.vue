@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="contents">
         <Loading v-if="loading" />
         <Error error="error" v-if="error" />
         <div class="nes-container is-rounded" v-if="gameConsole">
-            <p class="title">{{ gameConsole.name }}</p>
+            <h3 class="title">{{ gameConsole.name }}</h3>
             <div class="subtitle">{{ gameConsole.brand }}</div>
             <hr />
             <img :src="gameConsole.logoUrl" />

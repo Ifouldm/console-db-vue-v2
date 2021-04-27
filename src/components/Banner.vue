@@ -1,19 +1,23 @@
 <template>
-    <div class="banner">
-        Banner
+    <div class="content">
+        <div class="nes-container is-rounded">
+            <h1>Banner</h1>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "Appbar"
+    name: "Banner"
 };
 </script>
 
 <style scoped>
-.banner {
-    border: 4px solid black;
+.content {
     padding: 1rem;
+}
+
+.nes-container {
     color: #ffffff;
     background-color: #257e9c;
     background-image: url("../assets/banner.jpg");

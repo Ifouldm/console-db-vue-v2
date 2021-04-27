@@ -1,7 +1,10 @@
 <template>
     <div>
-        <LoadingAlert v-if="loading" />
-        <ErrorAlert error="error" v-if="error" />
+        <div class="contents">
+            <h1>Consoles</h1>
+            <LoadingAlert v-if="loading" />
+            <ErrorAlert error="error" v-if="error" />
+        </div>
         <div class="grid">
             <div class="cell" v-for="console in consoles" v-bind:key="console.id">
                 <ConsoleCard :console="console" />

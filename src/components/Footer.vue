@@ -1,5 +1,7 @@
 <template>
-    <div class="footer">{{ new Date().getFullYear() }} — <strong>Console DB</strong></div>
+    <div class="content">
+        <div class="nes-container is-rounded">{{ new Date().getFullYear() }} — <strong>Console DB</strong></div>
+    </div>
 </template>
 
 <script>
@@ -9,9 +11,11 @@ export default {
 </script>
 
 <style scoped>
-.footer {
-    border: 4px solid black;
+.content {
     padding: 1rem;
+}
+
+.nes-container {
     color: #ffffff;
     background-color: #257e9c;
     background-image: url("../assets/banner.jpg");

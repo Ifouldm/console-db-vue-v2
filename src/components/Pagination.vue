@@ -1,7 +1,7 @@
 <template>
     <div class="pagination">
         <button class="nes-btn" :class="{ 'is-disabled': !hasPrev }" @click="prev">
-            P
+            <mdicon name="chevron-left" />
         </button>
         <button
             class="nes-btn"
@@ -13,7 +13,7 @@
             {{ page }}
         </button>
         <button class="nes-btn" :class="{ 'is-disabled': !hasNext }" @click="next">
-            N
+            <mdicon name="chevron-right" />
         </button>
     </div>
 </template>
@@ -68,7 +68,9 @@ export default {
 </script>
 
 <style>
-.nes-btn {
-    margin: 0.5rem;
+.pagination {
+    margin: 1rem;
+    display: flex;
+    gap: 0.5rem;
 }
 </style>
