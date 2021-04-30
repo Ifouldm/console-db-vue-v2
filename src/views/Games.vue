@@ -33,17 +33,23 @@ export default {
     name: "Games",
     data() {
         return {
-            selection: ""
+            selection: "",
+            currentPage: 0
         };
     },
     computed: mapState(["games", "error", "loading", "page", "consoles"]),
     methods: {
         ...mapActions(["loadGames", "loadFilteredGames"]),
         onPageChange: function pageChange(pageNo) {
-            this.loadGames(pageNo);
+            this.currentPage = pageNo;
+            if (this.selection) {
+                this.filter();
+            } else {
+                this.loadGames(this.currentPage);
+            }
         },
         filter() {
-            this.loadFilteredGames({ consoleSel: this.selection, pageNo: this.page.number });
+            this.loadFilteredGames({ consoleSel: this.selection, pageNo: this.currentPage });
         }
     },
     mounted() {

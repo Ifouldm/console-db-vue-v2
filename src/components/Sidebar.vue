@@ -6,12 +6,19 @@
             <router-link class="nes-btn is-primary" :to="item.link" v-for="item in items" :key="item.title">
                 <mdicon :name="item.icon" /> {{ item.title }}
             </router-link>
+            <LoginForm />
         </div>
     </div>
 </template>
 
 <script>
+import LoginForm from "./LoginForm.vue";
+
 export default {
+    name: "Sidebar",
+    components: {
+        LoginForm
+    },
     data() {
         return {
             items: [

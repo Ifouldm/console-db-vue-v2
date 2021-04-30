@@ -6,6 +6,7 @@
     },
     "extends": ["plugin:vue/essential", "airbnb-base", "prettier"],
     "globals": {
+        "firebase": "readonly",
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
