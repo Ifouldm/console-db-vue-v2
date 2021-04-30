@@ -3,7 +3,7 @@
         <p class="title">{{ game.gameName }}</p>
         <div class="subtitle">{{ game.developer }}</div>
         <hr />
-        <img :src="imageLink" />
+        <!-- <img :src="imageLink" /> -->
         <p class="description">{{ game.description }}</p>
         <div class="action-bar">
             <router-link class="nes-btn is-primary" :to="{ name: 'game', params: { id: game.gameId } }">

@@ -16,7 +16,6 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import Loading from "../components/Loading.vue";
-// import Rating from "../components/Rating.vue";
 
 export default {
     name: "consoleDetails",
@@ -30,7 +29,6 @@ export default {
         ...mapState(["gameConsole", "error", "loading"])
     },
     components: {
-        // Rating,
         Loading,
         Error
     }

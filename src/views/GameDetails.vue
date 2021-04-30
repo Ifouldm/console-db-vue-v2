@@ -1,5 +1,5 @@
 <template>
-    <div class="contents">
+    <div class="content">
         <Loading v-if="loading" />
         <Error error="error" v-if="error" />
         <div class="nes-container is-rounded" v-if="game">
@@ -7,11 +7,14 @@
             <div class="subtitle">{{ game.developer }}</div>
             <hr />
             <img :src="imageLink" />
+            <p>Genres:</p>
+            <ul class="genres">
+                <li v-for="genre in game.genres" :key="genre">{{ genre }}</li>
+            </ul>
             <p class="description">{{ game.description }}</p>
             <div class="details">
                 <div class="players">Players: {{ game.players }}</div>
                 <div class="rating">
-                    {{ game.score }}
                     <Rating :value="Number(game.score)" />
                 </div>
                 <div class="year">Year: {{ game.year }}</div>

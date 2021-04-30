@@ -4,7 +4,7 @@
             <Sidebar />
             <div class="horiz">
                 <Banner />
-                <section>
+                <section class="main">
                     <router-view></router-view>
                 </section>
                 <Footer />
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Banner from "./components/Banner.vue";
 import Footer from "./components/Footer.vue";
 import Sidebar from "./components/Sidebar.vue";
@@ -24,11 +25,22 @@ export default {
         Banner,
         Footer,
         Sidebar
+    },
+    methods: {
+        ...mapActions(["loadConsoles"])
+    },
+    mounted() {
+        this.loadConsoles();
     }
 };
 </script>
 
 <style>
+html,
+body {
+    min-height: 100vh;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -41,6 +53,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-height: 100vh;
 }
 
 .horiz:nth-child(1) {
@@ -57,11 +70,15 @@ export default {
 
 .footer {
     width: 100%;
-    position: relative;
     bottom: 0;
+    left: inherit;
 }
 
-.contents {
+.main {
+    min-height: 75vh;
+}
+
+.content {
     padding: 1rem;
 }
 </style>

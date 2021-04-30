@@ -1,9 +1,15 @@
 <template>
-    <div class="contents">
+    <div class="content">
         <h1>About Screen</h1>
-        <a href="https://www.freepik.com/vectors/background"
-            >Background vector created by kjpargeter - www.freepik.com</a
-        >
+        <div class="lists">
+            <ul class="nes-list is-circle">
+                <li>
+                    <a href="https://www.freepik.com/vectors/background"
+                        >Background vector created by kjpargeter - www.freepik.com</a
+                    >
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 

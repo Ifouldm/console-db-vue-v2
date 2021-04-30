@@ -1,14 +1,14 @@
 <template>
     <div>
         <Loading v-if="loading" />
-        <Error error="error" v-if="error" />
-        <div class="contents">
+        <Error :error="error" v-if="error" />
+        <div class="content">
             <h1>Games</h1>
             <label for="console-select">Console Select</label>
             <div class="nes-select">
                 <select required id="console-select" v-model="selection" @change="filter">
                     <option value="" disabled selected hidden>Select...</option>
-                    <option v-for="i in 10" :key="i">Option {{ i }}</option>
+                    <option v-for="console in consoles" :key="console.name">{{ console.name }}</option>
                 </select>
             </div>
         </div>
@@ -36,18 +36,18 @@ export default {
             selection: ""
         };
     },
-    computed: mapState(["games", "error", "loading", "page"]),
+    computed: mapState(["games", "error", "loading", "page", "consoles"]),
     methods: {
-        ...mapActions(["loadGames"]),
+        ...mapActions(["loadGames", "loadFilteredGames"]),
         onPageChange: function pageChange(pageNo) {
             this.loadGames(pageNo);
         },
         filter() {
-            console.log(this.selection);
+            this.loadFilteredGames({ consoleSel: this.selection, pageNo: this.page.number });
         }
     },
     mounted() {
-        this.loadGames(1);
+        this.loadGames(0);
     }
 };
 </script>

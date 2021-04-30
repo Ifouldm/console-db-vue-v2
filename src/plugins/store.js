@@ -10,7 +10,6 @@ export default new Vuex.Store({
         gameConsole: null,
         games: [],
         game: null,
-        results: [],
         page: {},
         loading: false,
         error: null
@@ -27,9 +26,6 @@ export default new Vuex.Store({
         },
         updateGame(state, game) {
             state.game = game;
-        },
-        updateResults(state, results) {
-            state.results = results;
         },
         setLoading(state, value) {
             state.loading = value;
@@ -71,6 +67,26 @@ export default new Vuex.Store({
                     context.commit("setError", err);
                 });
         },
+        loadFilteredGames(context, { consoleSel, pageNo }) {
+            context.commit("setLoading", true);
+            axios
+                .get(`http://localhost:8080/api/gamesFiltered?console=${consoleSel}&page=${pageNo}`)
+                .then(res => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", null);
+                    context.commit("updateGames", res.data.content);
+                    context.commit("setPageData", {
+                        number: res.data.pageable.pageNumber,
+                        size: res.data.pageable.pageSize,
+                        totalElements: res.data.totalElements,
+                        totalPages: res.data.totalElements
+                    });
+                })
+                .catch(err => {
+                    context.commit("setLoading", false);
+                    context.commit("setError", err);
+                });
+        },
         loadGame(context, gameId) {
             context.commit("setLoading", true);
             axios
@@ -93,20 +109,6 @@ export default new Vuex.Store({
                     context.commit("setLoading", false);
                     context.commit("setError", null);
                     context.commit("updateConsole", res.data);
-                })
-                .catch(err => {
-                    context.commit("setLoading", false);
-                    context.commit("setError", err);
-                });
-        },
-        searchAction(context, searchTerm) {
-            context.commit("setLoading", true);
-            axios
-                .get(`http://localhost:8080/api/search?searchTerm=${searchTerm}`)
-                .then(res => {
-                    context.commit("setLoading", false);
-                    context.commit("setError", null);
-                    context.commit("searchResults", res.data);
                 })
                 .catch(err => {
                     context.commit("setLoading", false);

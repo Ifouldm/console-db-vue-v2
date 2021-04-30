@@ -1,8 +1,8 @@
 <template>
     <div>
-        <i class="nes-icon star" v-for="index in fullstars" :key="index"></i>
+        <i class="nes-icon star" v-for="index in fullstars" :key="`star${index}`"></i>
         <i class="nes-icon star is-half" v-if="partstar"></i>
-        <i class="nes-icon star is-transparent" v-for="index in emptystars" :key="index"></i>
+        <i class="nes-icon star is-transparent" v-for="index in emptystars" :key="`emptystar${index}`"></i>
     </div>
 </template>
 

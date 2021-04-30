@@ -14,27 +14,42 @@
             <p class="title">Results</p>
             <Loading v-if="loading" />
             <Error :error="error" v-if="error" />
+            <ResultsList v-else :searchResults="searchResults" />
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
+import axios from "axios";
 import Error from "../components/Error.vue";
 import Loading from "../components/Loading.vue";
+import ResultsList from "../components/ResultsList.vue";
 
 export default {
-    components: { Loading, Error },
+    components: { Loading, Error, ResultsList },
     data() {
         return {
-            searchTerm: ""
+            searchTerm: "",
+            searchResults: {}
         };
     },
-    computed: mapState(["searchResults", "error", "loading"]),
+    computed: mapState(["error", "loading"]),
     methods: {
-        ...mapActions(["searchAction"]),
+        ...mapMutations(["setLoading", "setError"]),
         search() {
-            this.searchAction();
+            this.setLoading(true);
+            axios
+                .get(`http://localhost:8080/api/search?searchTerm=${this.searchTerm}`)
+                .then(res => {
+                    this.setLoading(false);
+                    this.setError(null);
+                    this.searchResults = res.data;
+                })
+                .catch(err => {
+                    this.setLoading(false);
+                    this.setError(err);
+                });
         }
     }
 };

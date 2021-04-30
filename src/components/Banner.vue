@@ -13,10 +13,6 @@ export default {
 </script>
 
 <style scoped>
-.content {
-    padding: 1rem;
-}
-
 .nes-container {
     color: #ffffff;
     background-color: #257e9c;
