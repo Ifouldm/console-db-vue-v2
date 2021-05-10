@@ -14,12 +14,13 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { mapActions } from "vuex";
 import Banner from "./components/Banner.vue";
 import Footer from "./components/Footer.vue";
 import Sidebar from "./components/Sidebar.vue";
 
-export default {
+export default Vue.extend({
     name: "App",
     components: {
         Banner,
@@ -32,7 +33,7 @@ export default {
     mounted() {
         this.loadConsoles();
     }
-};
+});
 </script>
 
 <style>

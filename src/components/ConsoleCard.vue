@@ -1,14 +1,13 @@
 <template>
     <div class="nes-container with-title">
-        <p class="title">{{ console.name }}</p>
-        <div class="subtitle">{{ console.brand }}</div>
+        <p class="title">{{ consoleObj.name }}</p>
+        <div class="subtitle">{{ consoleObj.brand }}</div>
         <hr />
-        <p class="description">{{ console.description }}</p>
-        <ConsoleImage :imgUrl="console.photoUrl" />
-        <img :src="console.logoUrl" />
+        <ConsoleImage :imgUrl="photoUrl" />
+        <img :src="logoUrl" />
         <div class="action-bar">
-            <router-link class="nes-btn is-primary" :to="{ name: 'console', params: { id: console.id } }">
-                {{ console.name }}
+            <router-link class="nes-btn is-primary" :to="{ name: 'console', params: { id: consoleObj.id } }">
+                {{ consoleObj.name }}
             </router-link>
             <div class="nes-badge">
                 <span class="is-primary">
@@ -19,19 +18,33 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from "vue";
 import ConsoleImage from "./ConsoleImage.vue";
+import { ConsoleModel } from "../types/index.js";
 
-export default {
+export default Vue.extend({
     name: "Console",
-    props: ["console"],
+    props: {
+        consoleObj: {
+            type: Object as PropType<ConsoleModel>
+        }
+    },
     methods: {
-        boop(event) {
+        boop(event: Event) {
             console.log("boop", event);
         }
     },
+    computed: {
+        photoUrl(): string {
+            return `${process.env.VUE_APP_IMAGES_ROOT}/${this.consoleObj.name}.jpg`;
+        },
+        logoUrl(): string {
+            return `${process.env.VUE_APP_IMAGES_ROOT}/${this.consoleObj.name} Logo.png`;
+        }
+    },
     components: { ConsoleImage }
-};
+});
 </script>
 
 <style>

@@ -20,13 +20,14 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { mapMutations, mapState } from "vuex";
 import axios from "axios";
 import Error from "../components/Error.vue";
 import Loading from "../components/Loading.vue";
 import ResultsList from "../components/ResultsList.vue";
 
-export default {
+export default Vue.extend({
     components: { Loading, Error, ResultsList },
     data() {
         return {
@@ -52,5 +53,5 @@ export default {
                 });
         }
     }
-};
+});
 </script>

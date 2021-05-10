@@ -13,11 +13,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import Loading from "../components/Loading.vue";
+import Error from "../components/Error.vue";
 
-export default {
+export default Vue.extend({
     name: "consoleDetails",
     methods: {
         ...mapActions(["loadConsole"])
@@ -32,7 +34,7 @@ export default {
         Loading,
         Error
     }
-};
+});
 </script>
 
 <style scoped>

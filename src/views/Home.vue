@@ -1,11 +1,13 @@
 <template>
-    <div class="content">
-        <h1>Home Screen</h1>
+    <div class="home">
+        Home
     </div>
 </template>
 
-<style scoped>
-h1 {
-    width: 100%;
-}
-</style>
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+    name: "Home"
+});
+</script>

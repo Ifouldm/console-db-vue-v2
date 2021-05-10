@@ -4,14 +4,21 @@
         "browser": true,
         "es6": true
     },
-    "extends": ["plugin:vue/essential", "airbnb-base", "prettier"],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
+    "extends": ["plugin:vue/essential", "@vue/typescript", "prettier"],
     "globals": {
         "firebase": "readonly",
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-        "parser": "babel-eslint",
+        "parser": "@typescript-eslint/parser",
         "ecmaVersion": 2018,
         "sourceType": "module"
     },

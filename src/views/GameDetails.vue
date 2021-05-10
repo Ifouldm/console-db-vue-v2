@@ -6,12 +6,12 @@
             <h3 class="title">{{ game.gameName }}</h3>
             <div class="subtitle">{{ game.developer }}</div>
             <hr />
+            <p class="console">{{ game.console }}</p>
             <img :src="imageLink" />
             <p>Genres:</p>
             <ul class="genres">
                 <li v-for="genre in game.genres" :key="genre">{{ genre }}</li>
             </ul>
-            <p class="description">{{ game.description }}</p>
             <div class="details">
                 <div class="players">Players: {{ game.players }}</div>
                 <div class="rating">
@@ -19,17 +19,19 @@
                 </div>
                 <div class="year">Year: {{ game.year }}</div>
             </div>
+            <p class="description">{{ game.description }}</p>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import Loading from "../components/Loading.vue";
 import Error from "../components/Error.vue";
 import Rating from "../components/Rating.vue";
 
-export default {
+export default Vue.extend({
     name: "gameDetails",
     methods: {
         ...mapActions(["loadGame"])
@@ -40,7 +42,7 @@ export default {
     computed: {
         ...mapState(["game", "error", "loading"]),
         imageLink() {
-            return `../images/${this.game.console}/Named_Boxarts/${this.game.gameName}.png`;
+            return `${process.env.VUE_APP_IMAGES_ROOT}/${this.game.console}/Named_Boxarts/${this.game.gameName}.png`;
         }
     },
     components: {
@@ -48,10 +50,14 @@ export default {
         Loading,
         Error
     }
-};
+});
 </script>
 
 <style scoped>
+.details {
+    text-align: center;
+}
+
 img {
     max-width: 150px;
     max-height: 150px;

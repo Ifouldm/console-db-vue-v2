@@ -22,13 +22,14 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import GameView from "../components/GameCard.vue";
 import Loading from "../components/Loading.vue";
 import Error from "../components/Error.vue";
 import Pagination from "../components/Pagination.vue";
 
-export default {
+export default Vue.extend({
     components: { GameView, Loading, Error, Pagination },
     name: "Games",
     data() {
@@ -55,5 +56,5 @@ export default {
     mounted() {
         this.loadGames(0);
     }
-};
+});
 </script>

@@ -1,18 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import { ConsoleModel, GameModel } from "../types";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        consoles: [],
-        gameConsole: null,
-        games: [],
-        game: null,
+        consoles: [] as Array<ConsoleModel>,
+        gameConsole: {} as ConsoleModel,
+        games: [] as Array<GameModel>,
+        game: {} as GameModel,
         page: {},
         loading: false,
-        error: null
+        error: null as null | string
     },
     mutations: {
         updateConsoles(state, consoleList) {
@@ -25,6 +26,7 @@ export default new Vuex.Store({
             state.games = gameList;
         },
         updateGame(state, game) {
+            console.log(game);
             state.game = game;
         },
         setLoading(state, value) {
@@ -41,7 +43,7 @@ export default new Vuex.Store({
         loadConsoles(context) {
             context.commit("setLoading", true);
             axios
-                .get("http://localhost:8080/api/consoles")
+                .get(`${process.env.VUE_APP_API_ROOT}/consoles?size=50`)
                 .then(res => {
                     context.commit("setLoading", false);
                     context.commit("setError", null);
@@ -55,7 +57,7 @@ export default new Vuex.Store({
         loadGames(context, pageNo) {
             context.commit("setLoading", true);
             axios
-                .get(`http://localhost:8080/api/games?page=${pageNo}`)
+                .get(`${process.env.VUE_APP_API_ROOT}/games?page=${pageNo}`)
                 .then(res => {
                     context.commit("setLoading", false);
                     context.commit("setError", null);
@@ -70,7 +72,7 @@ export default new Vuex.Store({
         loadFilteredGames(context, { consoleSel, pageNo }) {
             context.commit("setLoading", true);
             axios
-                .get(`http://localhost:8080/api/gamesFiltered?console=${consoleSel}&page=${pageNo}`)
+                .get(`${process.env.VUE_APP_API_ROOT}/gamesFiltered?console=${consoleSel}&page=${pageNo}`)
                 .then(res => {
                     context.commit("setLoading", false);
                     context.commit("setError", null);
@@ -90,7 +92,7 @@ export default new Vuex.Store({
         loadGame(context, gameId) {
             context.commit("setLoading", true);
             axios
-                .get(`http://localhost:8080/api/games/${gameId}`)
+                .get(`${process.env.VUE_APP_API_ROOT}/games/${gameId}`)
                 .then(res => {
                     context.commit("setLoading", false);
                     context.commit("setError", null);
@@ -104,7 +106,7 @@ export default new Vuex.Store({
         loadConsole(context, consoleId) {
             context.commit("setLoading", true);
             axios
-                .get(`http://localhost:8080/api/consoles/${consoleId}`)
+                .get(`${process.env.VUE_APP_API_ROOT}/consoles/${consoleId}`)
                 .then(res => {
                     context.commit("setLoading", false);
                     context.commit("setError", null);

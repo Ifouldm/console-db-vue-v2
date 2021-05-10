@@ -3,7 +3,7 @@
         <p class="title">{{ game.gameName }}</p>
         <div class="subtitle">{{ game.developer }}</div>
         <hr />
-        <!-- <img :src="imageLink" /> -->
+        <img :src="imageLink" />
         <p class="description">{{ game.description }}</p>
         <div class="action-bar">
             <router-link class="nes-btn is-primary" :to="{ name: 'game', params: { id: game.gameId } }">
@@ -13,21 +13,24 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import { GameModel } from "../types";
+
+export default Vue.extend({
     name: "game",
-    props: ["game"],
+    props: { game: { type: Object as PropType<GameModel> } },
     methods: {
-        boop(event) {
+        boop(event: Event): void {
             console.log("boop", event);
         }
     },
     computed: {
-        imageLink() {
-            return `../images/${this.game.console}/Named_Boxarts/${this.game.gameName}.png`;
+        imageLink(): string {
+            return `${process.env.VUE_APP_IMAGES_ROOT}/${this.game.console}/Named_Boxarts/${this.game.gameName}.png`;
         }
     }
-};
+});
 </script>
 
 <style scoped>
