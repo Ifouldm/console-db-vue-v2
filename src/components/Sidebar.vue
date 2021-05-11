@@ -4,17 +4,18 @@
             <h4>Console DB</h4>
             <h6>The Console Database</h6>
             <router-link class="nes-btn is-primary" :to="item.link" v-for="item in items" :key="item.title">
-                <mdicon :name="item.icon" /> {{ item.title }}
+                {{ item.title }}
             </router-link>
             <LoginForm />
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import LoginForm from "./LoginForm.vue";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
     name: "Sidebar",
     components: {
         LoginForm
@@ -30,7 +31,7 @@ export default {
             ]
         };
     }
-};
+});
 </script>
 
 <style scoped>

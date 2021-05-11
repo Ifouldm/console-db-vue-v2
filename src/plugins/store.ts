@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import { ConsoleModel, GameModel } from "../types";
+import { ConsoleModel, GameModel, Page } from "../types";
 
 Vue.use(Vuex);
 
@@ -11,31 +11,30 @@ export default new Vuex.Store({
         gameConsole: {} as ConsoleModel,
         games: [] as Array<GameModel>,
         game: {} as GameModel,
-        page: {},
+        page: {} as Page,
         loading: false,
         error: null as null | string
     },
     mutations: {
-        updateConsoles(state, consoleList) {
+        updateConsoles(state, consoleList: Array<ConsoleModel>) {
             state.consoles = consoleList;
         },
-        updateConsole(state, gameConsole) {
+        updateConsole(state, gameConsole: ConsoleModel) {
             state.gameConsole = gameConsole;
         },
-        updateGames(state, gameList) {
+        updateGames(state, gameList: Array<GameModel>) {
             state.games = gameList;
         },
-        updateGame(state, game) {
-            console.log(game);
+        updateGame(state, game: GameModel) {
             state.game = game;
         },
-        setLoading(state, value) {
+        setLoading(state, value: boolean) {
             state.loading = value;
         },
-        setError(state, errorMessage) {
+        setError(state, errorMessage: string) {
             state.error = errorMessage;
         },
-        setPageData(state, pageData) {
+        setPageData(state, pageData: Page) {
             state.page = pageData;
         }
     },
@@ -54,7 +53,7 @@ export default new Vuex.Store({
                     context.commit("setError", err);
                 });
         },
-        loadGames(context, pageNo) {
+        loadGames(context, pageNo: Number) {
             context.commit("setLoading", true);
             axios
                 .get(`${process.env.VUE_APP_API_ROOT}/games?page=${pageNo}`)
@@ -89,7 +88,7 @@ export default new Vuex.Store({
                     context.commit("setError", err);
                 });
         },
-        loadGame(context, gameId) {
+        loadGame(context, gameId: string) {
             context.commit("setLoading", true);
             axios
                 .get(`${process.env.VUE_APP_API_ROOT}/games/${gameId}`)
@@ -103,7 +102,7 @@ export default new Vuex.Store({
                     context.commit("setError", err);
                 });
         },
-        loadConsole(context, consoleId) {
+        loadConsole(context, consoleId: string) {
             context.commit("setLoading", true);
             axios
                 .get(`${process.env.VUE_APP_API_ROOT}/consoles/${consoleId}`)

@@ -1,7 +1,7 @@
 <template>
     <div class="pagination">
         <button class="nes-btn" :class="{ 'is-disabled': !hasPrev }" @click="prev">
-            <mdicon name="chevron-left" />
+            &lt;
         </button>
         <button
             class="nes-btn"
@@ -13,58 +13,63 @@
             {{ page }}
         </button>
         <button class="nes-btn" :class="{ 'is-disabled': !hasNext }" @click="next">
-            <mdicon name="chevron-right" />
+            &gt;
         </button>
     </div>
 </template>
 
-<script>
-export default {
-    props: ["totalRecords", "perPage"],
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+    props: {
+        totalRecords: Number,
+        perPage: Number
+    },
     data() {
         return {
             currentPage: 1
         };
     },
     computed: {
-        totalPages() {
+        totalPages(): number {
             return Math.ceil(this.totalRecords / this.perPage);
         },
-        availPages() {
+        availPages(): Set<number> {
             return new Set(
                 [1, this.currentPage - 1, this.currentPage, this.currentPage + 1, this.totalPages]
                     .sort((a, b) => a - b)
                     .filter(pageNo => pageNo <= this.totalPages && pageNo >= 1)
             );
         },
-        hasNext() {
+        hasNext(): boolean {
             return this.currentPage < this.totalPages;
         },
-        hasPrev() {
+        hasPrev(): boolean {
             return this.currentPage > 1;
         }
     },
     methods: {
-        prev() {
+        prev(): void {
             if (this.hasPrev) {
                 this.currentPage -= 1;
                 this.$emit("pageChange", this.currentPage);
             }
         },
-        next() {
+        next(): void {
             if (this.hasNext) {
                 this.currentPage += 1;
                 this.$emit("pageChange", this.currentPage);
             }
         },
-        gotoPage(pageNo) {
+        gotoPage(pageNo: number): void {
             if (pageNo > 0 && pageNo <= this.totalPages) {
                 this.currentPage = pageNo;
                 this.$emit("pageChange", this.currentPage);
             }
         }
     }
-};
+});
 </script>
 
 <style>

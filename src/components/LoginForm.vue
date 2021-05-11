@@ -13,14 +13,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import { auth } from "../plugins/firebase";
+import firebase from "firebase/app";
 
-export default {
+export default Vue.extend({
     name: "LoginForm",
     data() {
         return {
-            user: null,
+            user: null as firebase.User | null,
             email: "",
             password: ""
         };
@@ -41,7 +43,7 @@ export default {
     created() {
         this.user = auth.currentUser;
     }
-};
+});
 </script>
 
 <style>

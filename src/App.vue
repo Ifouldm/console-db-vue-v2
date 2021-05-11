@@ -13,7 +13,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
 import { mapActions } from "vuex";
 import Banner from "./components/Banner.vue";

@@ -2,11 +2,13 @@
     <img :src="imgUrl" alt="Console Photo" />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
     name: "ConsoleImage",
     props: ["imgUrl"]
-};
+});
 </script>
 
 <style scoped>

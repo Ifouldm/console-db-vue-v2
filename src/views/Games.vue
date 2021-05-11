@@ -21,7 +21,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import GameView from "../components/GameCard.vue";
@@ -41,7 +41,7 @@ export default Vue.extend({
     computed: mapState(["games", "error", "loading", "page", "consoles"]),
     methods: {
         ...mapActions(["loadGames", "loadFilteredGames"]),
-        onPageChange: function pageChange(pageNo) {
+        onPageChange: function pageChange(pageNo: number) {
             this.currentPage = pageNo;
             if (this.selection) {
                 this.filter();

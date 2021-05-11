@@ -18,3 +18,10 @@ export interface GameModel {
     genre: Array<string>;
     players: number;
 }
+
+export interface Page {
+    number: Number;
+    size: Number;
+    totalElements: Number;
+    totalPages: Number;
+}

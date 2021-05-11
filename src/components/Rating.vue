@@ -6,24 +6,26 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
     props: {
         value: Number
     },
     computed: {
-        fullstars() {
+        fullstars(): number {
             return Math.floor(this.value);
         },
-        partstar() {
+        partstar(): boolean {
             return this.value % 1 >= 0.5;
         },
-        emptystars() {
+        emptystars(): number {
             const fullstars = Math.floor(this.value);
             return this.value % 1 >= 0.5 ? 5 - fullstars - 1 : 5 - fullstars;
         }
     }
-};
+});
 </script>
 
 <style></style>
