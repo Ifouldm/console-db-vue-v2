@@ -1,9 +1,11 @@
 <template>
-    <v-alert color="light-blue" elevation="2" dismissible>{{error}}</v-alert>
+    <div>{{ error }}</div>
 </template>
 
-<script>
-export default {
-    props: ['error'],
-};
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+    props: ["error"]
+});
 </script>

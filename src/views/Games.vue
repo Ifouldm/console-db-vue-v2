@@ -1,40 +1,60 @@
 <template>
-    <v-container>
+    <div>
         <Loading v-if="loading" />
-        <Error error="error" v-if="error" />
-        <v-row>
-            <v-col lg="3" md="4" sm="12" xs="12" v-for="game in games" :key="game.gameId">
+        <Error :error="error" v-if="error" />
+        <div class="content">
+            <h1>Games</h1>
+            <label for="console-select">Console Select</label>
+            <div class="nes-select">
+                <select required id="console-select" v-model="selection" @change="filter">
+                    <option value="" disabled selected hidden>Select...</option>
+                    <option v-for="console in consoles" :key="console.name">{{ console.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="cell" v-for="game in games" :key="game.gameId">
                 <GameView :game="game" />
-            </v-col>
-        </v-row>
-        <v-pagination
-            class="mt-3"
-            @input="onPageChange"
-            :length="page.totalPages"
-            total-visible="7"
-            :value="page.number"
-        />
-    </v-container>
+            </div>
+        </div>
+        <Pagination :perPage="20" :totalRecords="page.totalPages" @pageChange="onPageChange" :value="page.number" />
+    </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import GameView from "../components/GameCard.vue";
 import Loading from "../components/Loading.vue";
 import Error from "../components/Error.vue";
+import Pagination from "../components/Pagination.vue";
 
-export default {
-    components: { GameView, Loading, Error },
+export default Vue.extend({
+    components: { GameView, Loading, Error, Pagination },
     name: "Games",
-    computed: mapState(["games", "error", "loading", "page"]),
+    data() {
+        return {
+            selection: "",
+            currentPage: 0
+        };
+    },
+    computed: mapState(["games", "error", "loading", "page", "consoles"]),
     methods: {
-        ...mapActions(["loadGames"]),
-        onPageChange: function pageChange(pageNo) {
-            this.loadGames(pageNo);
+        ...mapActions(["loadGames", "loadFilteredGames"]),
+        onPageChange: function pageChange(pageNo: number) {
+            this.currentPage = pageNo;
+            if (this.selection) {
+                this.filter();
+            } else {
+                this.loadGames(this.currentPage);
+            }
+        },
+        filter() {
+            this.loadFilteredGames({ consoleSel: this.selection, pageNo: this.currentPage });
         }
     },
     mounted() {
-        this.loadGames(1);
+        this.loadGames(0);
     }
-};
+});
 </script>

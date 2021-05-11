@@ -1,31 +1,28 @@
 <template>
-    <v-container>
-        <LoadingAlert v-if=loading />
-        <ErrorAlert error=error v-if=error />
-        <v-col cols="12">
-            <v-row v-for="console in consoles" v-bind:key="console.id">
-            <ConsoleView
-                v-bind:console="console" />
-            </v-row>
-        </v-col>
-    </v-container>
+    <div>
+        <div class="content">
+            <h1>Consoles</h1>
+            <LoadingAlert v-if="loading" />
+            <ErrorAlert error="error" v-if="error" />
+        </div>
+        <div class="grid">
+            <div class="cell" v-for="consoleObj in consoles" v-bind:key="consoleObj.id">
+                <ConsoleCard :consoleObj="consoleObj" />
+            </div>
+        </div>
+    </div>
 </template>
 
-<script>
-import { mapState, mapActions } from 'vuex';
-import ConsoleView from '../components/ConsoleCard.vue';
-import LoadingAlert from '../components/Loading.vue';
-import ErrorAlert from '../components/Error.vue';
+<script lang="ts">
+import Vue from "vue";
+import { mapState } from "vuex";
+import ConsoleCard from "../components/ConsoleCard.vue";
+import LoadingAlert from "../components/Loading.vue";
+import ErrorAlert from "../components/Error.vue";
 
-export default {
-    components: { ConsoleView, LoadingAlert, ErrorAlert },
-    name: 'Consoles',
-    computed: mapState(['consoles', 'error', 'loading']),
-    methods: {
-        ...mapActions(['loadConsoles']),
-    },
-    mounted() {
-        this.loadConsoles();
-    },
-};
+export default Vue.extend({
+    components: { ConsoleCard, LoadingAlert, ErrorAlert },
+    name: "Consoles",
+    computed: mapState(["consoles", "error", "loading"])
+});
 </script>

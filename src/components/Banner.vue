@@ -1,6 +1,8 @@
 <template>
-    <div class="footer content">
-        <div class="nes-container is-rounded">{{ new Date().getFullYear() }} — <strong>Console DB</strong></div>
+    <div class="content">
+        <div class="nes-container is-rounded">
+            <h1>Banner</h1>
+        </div>
     </div>
 </template>
 
@@ -8,7 +10,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-    name: "FooterElement"
+    name: "Banner"
 });
 </script>
 

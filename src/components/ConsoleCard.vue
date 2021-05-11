@@ -1,43 +1,63 @@
 <template>
-    <v-card
-        class="mb-5"
-        elevation="2"
-        outlined
-        width=80%>
-        <v-card-title>{{console.name}}</v-card-title>
-        <v-card-subtitle>{{console.brand}}</v-card-subtitle>
-        <v-divider class="mx-4"></v-divider>
-        <v-card-text>
-            <p class='description'>{{console.description}}</p>
-            <ConsoleImage :imgUrl=console.photoUrl />
-        </v-card-text>
-        <v-img max-width="200" :src=console.logoUrl />
-        <v-card-actions>
-            <v-btn
-            color="primary"
-            elevation="2"
-            >
-                {{console.name}}
-            </v-btn>
-            <v-chip color="orange" outlined>
-                <time datetime='17/02/2021'>17th February 2021</time>
-            </v-chip>
-        </v-card-actions>
-    </v-card>
+    <div class="nes-container with-title">
+        <p class="title">{{ consoleObj.name }}</p>
+        <div class="subtitle">{{ consoleObj.brand }}</div>
+        <hr />
+        <ConsoleImage :imgUrl="photoUrl" />
+        <img :src="logoUrl" />
+        <div class="action-bar">
+            <router-link class="nes-btn is-primary" :to="{ name: 'console', params: { id: consoleObj.id } }">
+                {{ consoleObj.name }}
+            </router-link>
+            <div class="nes-badge">
+                <span class="is-primary">
+                    <time datetime="17/02/2021">17th February 2021</time>
+                </span>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script>
-import ConsoleImage from './ConsoleImage.vue';
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import ConsoleImage from "./ConsoleImage.vue";
+import { ConsoleModel } from "../types/index.js";
 
-export default {
-    name: 'Console',
-    props: ['console'],
-    methods: {
-        boop(event) { console.log('boop', event); },
+export default Vue.extend({
+    name: "Console",
+    props: {
+        consoleObj: {
+            type: Object as PropType<ConsoleModel>
+        }
     },
-    components: { ConsoleImage },
-};
+    methods: {
+        boop(event: Event) {
+            console.log("boop", event);
+        }
+    },
+    computed: {
+        photoUrl(): string {
+            return `${process.env.VUE_APP_IMAGES_ROOT}/${this.consoleObj.name}.jpg`;
+        },
+        logoUrl(): string {
+            return `${process.env.VUE_APP_IMAGES_ROOT}/${this.consoleObj.name} Logo.png`;
+        }
+    },
+    components: { ConsoleImage }
+});
 </script>
 
 <style>
+.nes-container {
+    margin: 1rem;
+}
+
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+img {
+    max-width: 200px;
+}
 </style>

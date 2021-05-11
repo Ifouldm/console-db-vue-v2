@@ -1,35 +1,50 @@
 <template>
-    <v-card height="100%" elevation="2" outlined>
-        <v-card-title>{{ game.gameName }}</v-card-title>
-        <v-card-subtitle>{{ game.developer }}</v-card-subtitle>
-        <v-divider></v-divider>
-        <v-img :src="imageLink" max-height="150" max-width="150" />
-        <v-card-text>
-            <p class="description">{{ game.description }}</p>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn color="primary" elevation="2" :to="{ name: 'game', params: { id: game.gameId } }">
+    <div class="nes-container with-title">
+        <p class="title">{{ game.gameName }}</p>
+        <div class="subtitle">{{ game.developer }}</div>
+        <hr />
+        <img :src="imageLink" />
+        <p class="description">{{ game.description }}</p>
+        <div class="action-bar">
+            <router-link class="nes-btn is-primary" :to="{ name: 'game', params: { id: game.gameId } }">
                 Details
-            </v-btn>
-        </v-card-actions>
-    </v-card>
+            </router-link>
+        </div>
+    </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import { GameModel } from "../types";
+
+export default Vue.extend({
     name: "game",
-    props: ["game"],
+    props: { game: { type: Object as PropType<GameModel> } },
     methods: {
-        boop(event) {
+        boop(event: Event): void {
             console.log("boop", event);
         }
     },
     computed: {
-        imageLink() {
-            return `../images/${this.game.console}/Named_Boxarts/${this.game.gameName}.png`;
+        imageLink(): string {
+            return `${process.env.VUE_APP_IMAGES_ROOT}/${this.game.console}/Named_Boxarts/${this.game.gameName}.png`;
         }
     }
-};
+});
 </script>
 
-<style></style>
+<style scoped>
+img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.nes-container {
+    margin: 1rem;
+}
+
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+}
+</style>
